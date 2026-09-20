@@ -25,32 +25,60 @@ public class CentroComercial {
 
             tiempo.avanzarTiempo();
             this.procesarLlegadaCliente();
-            this.registrarEstado();
+            fila.registrarEstado();
             this.asignarClienteACaja();
             this.procesarCajas();
             this.mostrarEstado();
 
         } while (!tiempo.haFinalizado());
-
+        this.mostrarResumen();
+        
     }
 
     private void procesarLlegadaCliente() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        haLlegadoCliente = Math.random() <= PROBABILIDAD_LLEGADA_CLIENTE;
+        if (haLlegadoCliente) {
+            Cliente cliente = new Cliente();
+            fila.añadirCliente(cliente);
+        }
     }
 
-    private void registrarEstado() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
+    
 
     private void asignarClienteACaja() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(int numeroCaja=0; numeroCaja<cajas.length; numeroCaja++){
+            if (cajas[numeroCaja].estaLibre() 
+                && fila.hayClientes()
+                && cajas[numeroCaja].puedeAtender(fila.primero())){
+                Cliente cliente = fila.quitarCliente();
+                cajas[numeroCaja].asignar(cliente);
+            }
+        }
     }
 
     private void procesarCajas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(int numeroCaja=0; numeroCaja<cajas.length; numeroCaja++){
+            cajas[numeroCaja].avanzarAtencion();
+        }
     }
 
     private void mostrarEstado() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        console.cleanScreen();
+        tiempo.mostrar(haLlegadoCliente);
+        fila.mostrar();
+        this.mostrarCajas();
+    }
+
+    private void mostrarResumen() {
+        int minutosSinClientes = fila.obtenerMinutosSinClientes();
+        int personasEnCola = fila.obtenerCantidadPersonasEnCola();
+        int personasAtendidas = this.obtenerPersonasAtendidas();
+        int itemsVendidos = this.obtenerItemsVendidos();
+
+        console.writeln("Personas atendidas: " + personasAtendidas);
+        console.writeln("Personas en cola al cierre: " + personasEnCola);
+        console.writeln("Items vendidos: " + itemsVendidos);
+        console.writeln("Minutos sin clientes en cola: " + minutosSinClientes);
     }
 }
