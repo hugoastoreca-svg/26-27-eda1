@@ -1,13 +1,15 @@
+
 public class Fila {
 
-     private Cliente[] clientes;
-    private final int CAPACIDAD_MAXIMA = 100;
+    private Nodo primero;
+    private Nodo ultimo;
     private int minutosSinClientes;
     private int tamaño;
     private Console console;
 
     public Fila() {
-        clientes = new Cliente[CAPACIDAD_MAXIMA];
+        primero = null;
+        ultimo = null;
         minutosSinClientes = 0;
         tamaño = 0;
         console = new Console();
@@ -20,7 +22,16 @@ public class Fila {
     }
 
     public void añadirCliente(Cliente cliente) {
-        clientes[tamaño] = cliente;
+        Nodo nuevo = new Nodo(cliente);
+
+        if (tamaño == 0) {
+            primero = nuevo;
+            ultimo = nuevo;
+        } else {
+            ultimo.siguiente = nuevo;
+            ultimo = nuevo;
+        }
+
         tamaño = tamaño + 1;
     }
 
@@ -29,19 +40,26 @@ public class Fila {
     }
 
     public Cliente quitarCliente() {
-        Cliente cliente = clientes[0];
-        for (int i = 0; i < tamaño - 1; i++) {
-            clientes[i] = clientes[i + 1];
-        }
-        clientes[tamaño - 1] = null;
+        Cliente cliente = primero.cliente;
+
+        primero = primero.siguiente;
         tamaño = tamaño - 1;
+
+        if (tamaño == 0) {
+            ultimo = null;
+        }
+
         return cliente;
     }
 
     public void mostrar() {
-        for(int i=0;i<tamaño;i++){
-            clientes[i].mostrar();
+        Nodo actual = primero;
+
+        while (actual != null) {
+            actual.cliente.mostrar();
+            actual = actual.siguiente;
         }
+
         console.writeln();
     }
 
@@ -54,7 +72,17 @@ public class Fila {
     }
 
     public Cliente primero() {
-        return clientes[0];
+        return primero.cliente;
     }
-    
+
+    private class Nodo {
+
+        private Cliente cliente;
+        private Nodo siguiente;
+
+        public Nodo(Cliente cliente) {
+            this.cliente = cliente;
+            siguiente = null;
+        }
+    }
 }
