@@ -27,8 +27,8 @@ class ListaEnlazada{
     }
 
     public void eliminarRepetidos() {
-    Nodo nodoDummy = new Nodo(0);
-    nodoDummy.siguiente = cabeza;
+        Nodo nodoDummy = new Nodo(0);
+        nodoDummy.siguiente = cabeza;
 
     Nodo nodoAnterior = nodoDummy;
 
@@ -51,4 +51,63 @@ class ListaEnlazada{
 
     cabeza = nodoDummy.siguiente;
 }
+    public void eliminarRepetidosSinDummy() {
+        while (cabeza != null && cabeza.siguiente != null && cabeza.dato == cabeza.siguiente.dato) {
+            int valorRepetido = cabeza.dato;
+
+            while (cabeza != null && cabeza.dato == valorRepetido) {
+                cabeza = cabeza.siguiente;
+            }
+        }
+
+        if (cabeza == null || cabeza.siguiente == null) {
+            return;
+        }
+
+        Nodo nodoAnterior = cabeza;
+        Nodo nodoActual = cabeza.siguiente;
+
+        while (nodoActual != null && nodoActual.siguiente != null) {
+
+            if (nodoActual.dato == nodoActual.siguiente.dato) {
+                int valorRepetido = nodoActual.dato;
+
+                while (nodoActual != null && nodoActual.dato == valorRepetido) {
+                    nodoActual = nodoActual.siguiente;
+                }
+
+                nodoAnterior.siguiente = nodoActual;
+            } else {
+                nodoAnterior = nodoActual;
+                nodoActual = nodoActual.siguiente;
+            }
+        }
+
+    }
+    public static ListaEnlazada fusionar(ListaEnlazada a, ListaEnlazada b) {
+
+        ListaEnlazada resultado = new ListaEnlazada();
+        Nodo dummy = new Nodo(-1);
+        Nodo cola = dummy;
+        Nodo nodoA = a.cabeza;
+        Nodo nodoB = b.cabeza;
+
+        for (; nodoA != null && nodoB != null; cola = cola.siguiente) {
+            if (nodoA.dato <= nodoB.dato) {
+                cola.siguiente = nodoA;
+                nodoA = nodoA.siguiente;
+            } else {
+                cola.siguiente = nodoB;
+                nodoB = nodoB.siguiente;
+            }
+        }
+
+        cola.siguiente = (nodoA != null) ? nodoA : nodoB;
+
+        resultado.cabeza = dummy.siguiente;
+        a.cabeza = null;
+        b.cabeza = null;
+
+        return resultado;
+    }
 }
