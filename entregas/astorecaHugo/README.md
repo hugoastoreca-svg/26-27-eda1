@@ -1,4 +1,4 @@
-# Expliación de como se ha visto la estrcutura de las eleciones de delegad
+# Estructura vista y justificación
 ## Array
  - Es de tipo int.
  - Almacena los votos que se vayan contando de los candidatos.
