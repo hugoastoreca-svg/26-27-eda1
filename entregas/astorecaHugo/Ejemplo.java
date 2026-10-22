@@ -1,12 +1,12 @@
 public class Ejemplo {      
- public static void main(String[] args) {
+public static void main(String[] args) {
 
         List presentes = new List();
-        presentes.insertEnd("Juanito");
-        presentes.insertEnd("Pepito");
-        presentes.insertEnd("Anita");
-        presentes.insertEnd("Luisito");
-        presentes.insertEnd("Marta");
+        presentes.insertEnd("Hector");
+        presentes.insertEnd("Jacobo");
+        presentes.insertEnd("Hugo");
+        presentes.insertEnd("Ana");
+        presentes.insertEnd("Javier");
         presentes.insertEnd("Rosa");
 
         presentes.delete("Luisito");
@@ -14,11 +14,12 @@ public class Ejemplo {
         viewLine("PRESENTES", presentes.listAll());
 
         List candidaturas = new List();
-        proponer(candidaturas, presentes, "Anita");
-        proponer(candidaturas, presentes, "Pepito");
-        proponer(candidaturas, presentes, "Luisito");
-        proponer(candidaturas, presentes, "Marta");
-        candidaturas.delete("Marta");
+        proponer(candidaturas, presentes, "Hector");
+        proponer(candidaturas, presentes, "Jacobo");
+        proponer(candidaturas, presentes, "Hugo");
+        proponer(candidaturas, presentes, "Ana");
+        
+        candidaturas.delete("Javier");
 
         String[] candidatos = candidaturas.listAll();
         viewLine("CANDIDATOS", candidatos);
@@ -26,13 +27,13 @@ public class Ejemplo {
         Pizarra pizarra = new Pizarra(candidatos);
         Queue urna = new Queue();
 
-        votar(urna, presentes, "Juanito", "Anita");
-        votar(urna, presentes, "Pepito", "Pepito");
-        votar(urna, presentes, "Anita", "Anita");
-        votar(urna, presentes, "Marta", "");
-        votar(urna, presentes, "Rosa", "Anita");
-        votar(urna, presentes, "Carlos", "Batman");
-        votar(urna, presentes, "Luisito", "Anita");
+        votar(urna, presentes, "Hector", "Jacobo");
+        votar(urna, presentes, "Jacobo", "Hugo");
+        votar(urna, presentes, "Hugo", "Ana");
+        votar(urna, presentes, "Ana", "");
+        votar(urna, presentes, "Javier", "Ana");
+        votar(urna, presentes, "Rosa", "Batman");
+
 
         System.out.println("Las papeletas se leen en el orden en que se recogieron");
         while (!urna.estaVacia()) {
