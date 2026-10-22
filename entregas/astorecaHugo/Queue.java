@@ -17,4 +17,12 @@ public class Queue{
             ultimo = nuevo;
         }
     }
+    public String sacarPrimero() {
+        assert primero != null;
+        String valor = primero.getValue();
+        primero = primero.getNext();
+        if (primero == null) {
+            ultimo = null;
+        }
+        return valor;
 }
