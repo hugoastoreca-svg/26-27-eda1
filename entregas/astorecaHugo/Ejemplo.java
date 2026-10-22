@@ -6,63 +6,42 @@ public class Ejemplo {
 
         System.out.println(cola.estaVacia());
 
-        cola.insertarAlFinal("Hector");
-        cola.insertarAlFinal("Juan");
-        cola.insertarAlFinal("Carlos");
-
-
+       System.out.println(cola.sacarPrimero());
         System.out.println(cola.sacarPrimero());
         System.out.println(cola.sacarPrimero());
-        System.out.println(cola.sacarPrimero());
-    
+        System.out.println(cola.estaVacia());
 
-        String[] candidatos = candidaturas.listAll();
-        viewLine("CANDIDATOS", candidatos);
+        ListaAlumnosPresentes lista = new ListaAlumnosPresentes();
+        System.out.println("----------------");
+        lista.insertarInicio("jacobo");
+        lista.insertarInicio("hugo");
+        lista.insertarInicio("kiko");
+        lista.mostrar();
+        lista.eliminar("jacobo");
+        System.out.println("----------------");
+        lista.mostrar();
+        lista.eliminar("kiko");
 
-        Pizarra pizarra = new Pizarra(candidatos);
-        Queue urna = new Queue();
+        System.out.println("----------------");
+        lista.mostrar();
 
-        votar(urna, presentes, "Juanito", "Anita");
-        votar(urna, presentes, "Pepito", "Pepito");
-        votar(urna, presentes, "Anita", "Anita");
-        votar(urna, presentes, "Marta", "");
-        votar(urna, presentes, "Rosa", "Anita");
-        votar(urna, presentes, "Carlos", "Batman");
-        votar(urna, presentes, "Luisito", "Anita");
+        ListaCandidatos candidatos = new ListaCandidatos();
 
-        System.out.println("Las papeletas se leen en el orden en que se recogieron");
-        while (!urna.estaVacia()) {
-            String voto = urna.sacarPrimero();
-            System.out.println("Secretario: " + (voto.isEmpty() ? "en blanco" : voto));
-            pizarra.anotar(voto);
-        }
+        candidatos.insertarInicio("Ana");
+        candidatos.insertarInicio("Luis");
+        candidatos.insertarInicio("Carlos");
 
-        pizarra.mostrar();
-        pizarra.proclamar();
-    }
+        console.writeln("Candidatos:");
+        candidatos.mostrar();
 
-    static void proponer(List candidaturas, List presentes, String alumno) {
-        if (presentes.contains(alumno) && !candidaturas.contains(alumno)) {
-            candidaturas.insertEnd(alumno);
-        } else {
-            System.out.println("Candidatura rechazada: " + alumno);
-        }
-    }
+        console.writeln("¿Ana es candidata?");
+        console.writeln(candidatos.contiene("Ana"));
 
-    static void votar(Queue urna, List presentes, String alumno, String papeleta) {
-        if (presentes.contains(alumno)) {
-            urna.insertarAlFinal(papeleta);
-        } else {
-            System.out.println("Papeleta rechazada: " + alumno + " no consta como presente");
-        }
-    }
+        console.writeln("Eliminamos a Luis:");
+        candidatos.eliminar("Luis");
 
-    static void viewLine(String titulo, String[] elementos) {
-        System.out.println(titulo + "-".repeat(25 - titulo.length()));
-        for (String elemento : elementos) {
-            System.out.println(elemento);
-        }
-        System.out.println("-".repeat(25));
+        console.writeln("Candidatos después de eliminar:");
+        candidatos.mostrar();
     }
 
     }
