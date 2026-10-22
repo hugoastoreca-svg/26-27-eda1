@@ -25,4 +25,9 @@ public class Queue{
             ultimo = null;
         }
         return valor;
+    }
+
+        public boolean estaVacia(){
+        return primero==null;
+    }
 }
