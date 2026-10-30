@@ -1,13 +1,13 @@
 # Ejercicio 1: Análisis de implementaciones
 
-## A. ¿Qué implementación considera que utiliza mejor los recursos de memoria? Justifique su respuesta.
+## a) ¿Qué implementación considera que utiliza mejor los recursos de memoria? Justifique su respuesta.
 
 - La **Implementación B** utiliza mejor los recursos de memoria[cite: 3].
 - **Justificación**:
   - La **Implementación A** crea un nuevo objeto `Persona` cada vez que se instancia un nodo (`this.persona = new Persona(...)`), duplicando la información de la persona en la memoria heap[cite: 3].
   - La **Implementación B** simplemente almacena la referencia del objeto existente (`this.persona = persona`), evitando duplicidades innecesarias de objetos idénticos[cite: 3].
 
-## B. ¿Qué problemas o ventajas podría causar cada implementación? Proporcione ejemplos.
+## b) ¿Qué problemas o ventajas podría causar cada implementación? Proporcione ejemplos.
 
 - **Implementación A**:
   - _Ventaja_: **Aislamiento y seguridad de datos**. Al crear una copia mediante el constructor, si el objeto original externo se modifica más tarde, el nodo de la lista no se ve alterado[cite: 3].
@@ -16,7 +16,7 @@
   - _Ventaja_: **Máxima eficiencia de memoria y velocidad**, ya que solo se asignan referencias de punteros de 64 bits[cite: 3].
   - _Inconveniente_: **Efectos colaterales (Aliasing)**. Si se modifica externamente el objeto original pasado por parámetro, el contenido dentro de la lista cambiará de forma indeseada[cite: 3].
 
-## C. ¿Cómo afectaría cada implementación al comportamiento de una lista que use estos nodos?
+## c) ¿Cómo afectaría cada implementación al comportamiento de una lista que use estos nodos?
 
 - **Implementación A**: La lista actúa como un contenedor independiente; los cambios externos en las variables de origen no afectan el contenido interno de la estructura de datos[cite: 3].
 - **Implementación B**: La lista mantiene una dependencia directa con el exterior. Trabaja estrictamente por referencias compartidas, lo que exige un mayor cuidado con la mutabilidad de los objetos almacenados[cite: 3].
